@@ -10,42 +10,41 @@ typedef StopPlayCallBack = void Function(String path);
 class RecordAmr {
   static const MethodChannel _channel = const MethodChannel('record_amr');
 
-  static RecordAmr _recordAmr;
+  static RecordAmr? _recordAmr;
 
   // ignore: unused_field
-  VolumeCallBack _callBack;
-  StopPlayCallBack _stopCallBack;
+  VolumeCallBack? _callBack;
+  StopPlayCallBack? _stopCallBack;
 
   static RecordAmr get _private => _recordAmr = _recordAmr ?? RecordAmr._();
 
   RecordAmr._() {
-    _channel.setMethodCallHandler((call) {
+    _channel.setMethodCallHandler((call) async {
       if (call.method == 'volume') {
         double volume = call.arguments.toDouble();
         if (_private._callBack != null) {
-          _private._callBack(volume);
+          _private._callBack!(volume);
         }
       }
 
       if (call.method == 'stopPlaying') {
         String path = call.arguments["path"] as String;
         if (_private._stopCallBack != null) {
-          _private._stopCallBack(path);
+          _private._stopCallBack!(path);
           _private._stopCallBack = null;
         }
       }
-      return null;
     });
   }
 
   bool recoreding = false;
-  VolumeCallBack callback;
+  VolumeCallBack? callback;
 
   /// start record
   /// [path] record file path.
   /// [callBack] volume callback: 0 ~ 1.
   static Future<bool> startVoiceRecord([
-    VolumeCallBack volumeCallBack,
+    VolumeCallBack? volumeCallBack,
   ]) async {
     if (_private.recoreding) {
       return false;
@@ -84,7 +83,7 @@ class RecordAmr {
   /// play amr file
   static Future<bool> play(
     String path, [
-    StopPlayCallBack endCallback,
+    StopPlayCallBack? endCallback,
   ]) async {
     _private._stopCallBack = endCallback;
     bool isPlay = await _channel.invokeMethod('play', {"path": path}) as bool;
