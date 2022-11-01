@@ -66,7 +66,7 @@ class RecordAmr {
     Map result = await _channel.invokeMethod('stopVoiceRecord');
     _private._callBack = null;
     _private.recoreding = false;
-    String error = result['error'];
+    String? error = result['error'];
     String path = result['path'];
     int duration = result['duration'] as int;
     callBack(path, duration);
