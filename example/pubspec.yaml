@@ -6,14 +6,14 @@ description: Demonstrates how to use the record_amr plugin.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
   # 权限管理
-  permission_handler: ^5.0.1+1
+  permission_handler: ^6.0.0
   
   record_amr:
     # When depending on this package from a real application you should use:

@@ -13,7 +13,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   double _volume = 0;
-  String _path;
+  late String _path;
 
   @override
   void initState() {

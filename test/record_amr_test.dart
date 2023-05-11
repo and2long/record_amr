@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:record_amr/record_amr.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('record_amr');
